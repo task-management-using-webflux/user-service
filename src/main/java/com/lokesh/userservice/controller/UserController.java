@@ -13,6 +13,7 @@ import reactor.core.publisher.Mono;
 
 @Slf4j
 @RestController
+@RequestMapping(value = "/api/user")
 public class UserController {
     @Autowired
     private UserService userService;
@@ -45,5 +46,10 @@ public class UserController {
     private Flux<User> findAll() {
         log.info("getting all users...");
         return this.userService.findAll();
+    }
+    @GetMapping(value = "/{id}")
+    private Mono<User> findById(@PathVariable("id") String id) {
+        log.info(id);
+        return this.userService.findById(id);
     }
 }
